@@ -1,3 +1,16 @@
+# 1.2.0 - german translation available 🇩🇪
+
+## :globe_with_meridians: Localization 
+
+- add german translation ([PR #7](https://github.com/SVNKoch/my-home-assistant-automatic-link-redirect-userscript/pull/7) by [@SVNKoch]())
+
+---
+
+<sub>[Detailed Change Information](https://github.com/SVNKoch/my-home-assistant-automatic-link-redirect-userscript/compare/v1.1.0...v1.2.0)</sub>
+
+<br>
+<br>
+
 # 1.1.0
 
 ## :bug: Bugs Fixed
