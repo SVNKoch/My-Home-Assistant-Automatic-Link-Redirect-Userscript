@@ -1,15 +1,17 @@
 // ==UserScript==
-// @name         Automatic Redirect on My Home Assistant Links to Local Instance
-// @description  Automatically follows the link to your local instance. If you go back in history, it will not re-redirect again.
-// @version      1.1.0
-// @grant        none
-// @match        https://my.home-assistant.io/redirect/*
-// @exclude      https://my.home-assistant.io/redirect/_change/*
-// @namespace    https://github.com/SVNKoch
-// @author       SVNKoch
-// @homepageURL  https://github.com/SVNKoch/my-home-assistant-automatic-link-redirect-userscript
-// @supportURL   https://github.com/SVNKoch/my-home-assistant-automatic-link-redirect-userscript/issues
-// @license      MIT
+// @name            Automatic Redirect on My Home Assistant Links to Local Instance
+// @description     Automatically follows the link to your local instance. If you go back in history, it will not re-redirect again.
+// @version         1.1.0
+// @grant           none
+// @match           https://my.home-assistant.io/redirect/*
+// @exclude         https://my.home-assistant.io/redirect/_change/*
+// @namespace       https://github.com/SVNKoch
+// @author          SVNKoch
+// @homepageURL     https://github.com/SVNKoch/my-home-assistant-automatic-link-redirect-userscript
+// @supportURL      https://github.com/SVNKoch/my-home-assistant-automatic-link-redirect-userscript/issues
+// @license         MIT
+// @name:de         Automatische Umleitung bei My Home Assistant-Links zur lokalen Instanz
+// @description:de  Folgt automatisch dem Link zur lokalen Instanz. Beim Zurückgehen in der Historie, erfolgt keine erneute Weiterleitung.
 // ==/UserScript==
 
 waitForLinkElementToLoad(function() {
