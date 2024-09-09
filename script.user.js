@@ -9,6 +9,7 @@
 // @author       SVNKoch
 // @homepageURL  https://github.com/SVNKoch/my-home-assistant-automatic-link-redirect-userscript
 // @supportURL   https://github.com/SVNKoch/my-home-assistant-automatic-link-redirect-userscript/issues
+// @license      MIT
 // ==/UserScript==
 
 waitForLinkElementToLoad(function() {
