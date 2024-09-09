@@ -9,6 +9,7 @@
 // @exclude         https://my.home-assistant.io/redirect/_change/*
 // @namespace       https://github.com/SVNKoch
 // @author          SVNKoch
+// @icon64URL       https://my.home-assistant.io/images/favicon.png
 // @homepageURL     https://github.com/SVNKoch/my-home-assistant-automatic-link-redirect-userscript
 // @supportURL      https://github.com/SVNKoch/my-home-assistant-automatic-link-redirect-userscript/issues
 // @license         MIT
