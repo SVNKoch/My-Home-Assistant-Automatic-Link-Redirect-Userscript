@@ -65,7 +65,7 @@ version-resolver:
       - ':cloud: type: ci'
   default: patch
 
-change-template: '- $TITLE ((PR [#$NUMBER]($URL)) by [@$AUTHOR]($AUTHOR_URL))'
+change-template: '- $TITLE ([PR #$NUMBER]($URL) by [@$AUTHOR]($AUTHOR_URL))'
 
 template: |
 
