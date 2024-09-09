@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Automatic Redirect on My Home Assistant Links to Local Instance
 // @description  Automatically follows the link to your local instance. If you go back in history, it will not re-redirect again.
-// @version      auto
+// @version      1.0.0
 // @grant        none
 // @match        https://my.home-assistant.io/redirect/*
 // @exclude      https://my.home-assistant.io/redirect/_change/*
