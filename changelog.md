@@ -1,3 +1,17 @@
+# 1.3.0 - now with icon
+
+## :bookmark_tabs: Documentation
+
+- add icon (home assistant favicon) ([PR #9](https://github.com/SVNKoch/my-home-assistant-automatic-link-redirect-userscript/pull/9) by [@SVNKoch]())
+- reorder code to satisfy ESLint ([PR #8](https://github.com/SVNKoch/my-home-assistant-automatic-link-redirect-userscript/pull/8) by [@SVNKoch]())
+
+---
+
+<sub>[Detailed Change Information](https://github.com/SVNKoch/my-home-assistant-automatic-link-redirect-userscript/compare/v1.2.0...v1.3.0)</sub>
+
+<br>
+<br>
+
 # 1.2.0 - german translation available 🇩🇪
 
 ## :globe_with_meridians: Localization 

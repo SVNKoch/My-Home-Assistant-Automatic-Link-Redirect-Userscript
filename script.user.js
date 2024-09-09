@@ -3,7 +3,7 @@
 // @name:de         Automatische Umleitung bei My Home Assistant-Links zur lokalen Instanz
 // @description     Automatically follows the link to your local instance. If you go back in history, it will not re-redirect again.
 // @description:de  Folgt automatisch dem Link zur lokalen Instanz. Beim Zurückgehen in der Historie, erfolgt keine erneute Weiterleitung.
-// @version         1.2.0
+// @version         1.3.0
 // @grant           none
 // @match           https://my.home-assistant.io/redirect/*
 // @exclude         https://my.home-assistant.io/redirect/_change/*
