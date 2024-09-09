@@ -98,7 +98,7 @@ jobs:
         git checkout main
         git pull origin main
         
-        git add version.txt changelog.md
+        git add script.user.js changelog.md
         git commit -m "version: ${{ steps.release_drafter.outputs.resolved_version }}" -m "update version number in script and append changelog"
         
         git tag "$tag"
@@ -119,8 +119,7 @@ jobs:
           ${{ steps.release_drafter.outputs.body }}
         append_body: false
         files: |
-          ./changelog.md
-          ./version.txt
+          ./script.user.js
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
