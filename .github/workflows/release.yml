@@ -1,0 +1,133 @@
+name: publish release
+
+on:
+  workflow_dispatch:
+    inputs:
+      title:
+        description: 'release title [opional]'
+        required: false
+        default: ''
+      force_version:
+        description: 'force version number [opional]'
+        required: false
+        default: ''
+  release:
+    types: [released]
+
+jobs:
+  release:
+    permissions:
+      contents: write
+      pull-requests: read
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: ✔️ check force_version input
+      run: |
+        if [[ -n "${{ github.event.inputs.force_version }}" && ! "${{ github.event.inputs.force_version }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          echo "invalid force_version: ${{ github.event.inputs.force_version }}."
+          exit 1
+        fi
+
+    - name: ⤵️ check out code
+      uses: actions/checkout@v4
+
+    - name: 📝 generate changelog and new version (via drafted release)
+      uses: release-drafter/release-drafter@v5
+      id: release_drafter
+      with:
+        config-name: release-drafter.yml
+        publish: false
+        version: ${{ github.event.inputs.force_version }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: ✔️ verify new version was calculated
+      run: |
+        if [[ -z "${{ steps.release_drafter.outputs.resolved_version }}" ]]; then
+          echo "No new version was calculated"
+          exit 1
+        fi
+
+    - name: 🤖 configure git user
+      run: |
+        # see https://github.com/actions/checkout/blob/main/README.md#push-a-commit-using-the-built-in-token
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      
+    - name: ✔️ check if tag already exists
+      run: |
+        tag="v${{ steps.release_drafter.outputs.resolved_version }}"
+        
+        git fetch --tags
+        
+        if git rev-parse "refs/tags/$tag" >/dev/null 2>&1; then
+          echo "error: tag $tag already exists on the remote."
+          exit 1
+        fi
+      shell: bash
+
+    - name: 🔖 determine release title
+      id: determine_release_title
+      run: |
+        if [ -z "${{ github.event.inputs.title }}" ]; then
+            echo "::set-output name=title::${{ steps.release_drafter.outputs.resolved_version }}"
+        else
+            echo "::set-output name=title::${{ steps.release_drafter.outputs.resolved_version }} - ${{ github.event.inputs.title }}"
+        fi
+
+    - name: ✏️ update version number in userscript
+      run: |
+        resolved_version="${{ steps.release_drafter.outputs.resolved_version }}"
+        sed -i -E 's/^(\s*\/\/\s*\@version\s+)([^ \t]+)$/\1'${resolved_version}'/' script.user.js
+        
+    - name: ✏️ prepend changelog to changelog.md
+      run: |
+        echo "# ${{ steps.determine_release_title.outputs.title }}" > temp_changelog.md
+        echo "${{ steps.release_drafter.outputs.body }}" >> temp_changelog.md
+        echo -e "<br>\n<br>\n" >> temp_changelog.md
+        cat changelog.md >> temp_changelog.md
+        mv temp_changelog.md changelog.md
+
+    - name: 📤 commit changes and push with tag
+      run: |
+        tag="v${{ steps.release_drafter.outputs.resolved_version }}"
+    
+        git checkout main
+        git pull origin main
+        
+        git add version.txt changelog.md
+        git commit -m "version: ${{ steps.release_drafter.outputs.resolved_version }}" -m "update version number in script and append changelog"
+        
+        git tag "$tag"
+        
+        git push origin main
+        git push origin "$tag"
+      shell: bash
+
+    - name: 📦 publish release with custom body title and attached assets
+      uses: softprops/action-gh-release@v1
+      with:
+        prerelease: false
+        draft: false
+        tag_name: ${{ steps.release_drafter.outputs.tag_name }}
+        name: ${{ steps.determine_release_title.outputs.title }}
+        body: |
+          # 📃 What's changed
+          ${{ steps.release_drafter.outputs.body }}
+        append_body: false
+        files: |
+          ./changelog.md
+          ./version.txt
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: 🗑 remove draft release
+      uses: sgpublic/delete-release-action@v1.1
+      with:
+        draft-drop: true
+        draft-drop-count: -1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

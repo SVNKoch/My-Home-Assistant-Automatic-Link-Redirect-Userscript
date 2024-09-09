@@ -1,0 +1,76 @@
+name-template: 'draft'
+tag-template: 'v$RESOLVED_VERSION'
+
+categories:
+  - title: ':loudspeaker: Highlights'
+    label: 
+      - ':loudspeaker: release-drafter: highlight'
+
+  - title: ':rotating_light: Breaking Changes'
+    label: 
+      - ':rotating_light: type: breaking change'
+
+  - title: ':new: New Features'
+    label: 
+      - ':new: type: feature'
+
+  - title: ':rocket: Enhancements'
+    label: 
+      - ':rocket: type: enhancement'
+
+  - title: ':bug: Bugs Fixed'
+    label: 
+      - ':bug: type: bug'
+
+  - title: ':bookmark_tabs: Documentation'
+    label: 
+      - ':bookmark_tabs: type: documentation'
+
+  - title: ':globe_with_meridians: Localization '
+    label: 
+      - ':globe_with_meridians: type: localization'
+
+  - title: ':toolbox: Maintenance'
+    labels:
+      - ':recycle: type: refactor'
+      - ':broom: type: chore'
+      - ':toolbox: type: maintenance'
+
+  - title: ':arrow_up: Dependency Updates'
+    labels:
+      - ':arrow_up: type: dependencies'
+
+  - title: 'Other Changes'
+
+exclude-labels:
+  - ':mute: release-drafter: exclude'
+
+version-resolver:
+  major:
+    labels:
+      - ':rotating_light: type: breaking change'
+  minor:
+    labels:
+      - ':new: type: feature'
+      - ':rocket: type: enhancement'
+      - ':globe_with_meridians: type: localization'
+      - ':bookmark_tabs: type: documentation'
+  patch:
+    labels:
+      - ':bug: type: bug'
+      - ':recycle: type: refactor'
+      - ':broom: type: chore'
+      - ':toolbox: type: maintenance'
+      - ':arrow_up: type: dependencies'
+      - ':cloud: type: ci'
+  default: patch
+
+change-template: '- $TITLE ((PR [#$NUMBER]($URL)) by [@$AUTHOR]($AUTHOR_URL))'
+
+template: |
+
+  $CHANGES
+
+  ---
+
+  <sub>[Detailed Change Information](https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION)</sub>
